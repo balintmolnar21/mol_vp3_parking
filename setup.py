@@ -37,6 +37,7 @@ setup(
 
     entry_points={
         'console_scripts': [
+            'parking_sensor = mol_vp3_parking.parking_sensor_node:main',
         ],
     },
 )
