@@ -143,6 +143,8 @@ Status: WARNING
 
 ![Parking Assistant](img/parking_assistant_terminal.png)
 
-### ROS 2 graph
+### ROS 2 Communication
 
-![ROS 2 Graph](img/rqt_graph.png)
+Az alábbi képernyőkép a futó ROS 2 rendszer node-jait és topic-kommunikációját mutatja.
+
+![ROS 2 Communication](img/ros2_communication.png)
