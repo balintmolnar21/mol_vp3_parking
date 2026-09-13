@@ -26,6 +26,34 @@ class ParkingAssistantNode(Node):
             'Parking assistant node started successfully.'
         )
 
+    def create_proximity_bar(self, distance):
+        min_distance = 0.15
+        max_distance = 2.50
+        bar_length = 16
+
+        clamped_distance = max(
+            min(distance, max_distance),
+            min_distance
+        )
+
+        proximity = (
+            (max_distance - clamped_distance)
+            / (max_distance - min_distance)
+        )
+
+        filled_length = round(
+            proximity * bar_length
+        )
+
+        empty_length = bar_length - filled_length
+
+        return (
+            '['
+            + '#' * filled_length
+            + '-' * empty_length
+            + ']'
+        )
+
     def distance_callback(self, message):
         distances = message.data
 
@@ -65,12 +93,29 @@ class ParkingAssistantNode(Node):
 
         self.status_publisher.publish(status_message)
 
-        self.get_logger().info(
-            f'Left: {distances[0]:.2f} m | '
-            f'Center: {distances[1]:.2f} m | '
-            f'Right: {distances[2]:.2f} m | '
-            f'{output}'
+        left_bar = self.create_proximity_bar(
+            distances[0]
         )
+        center_bar = self.create_proximity_bar(
+            distances[1]
+        )
+        right_bar = self.create_proximity_bar(
+            distances[2]
+        )
+
+        visualization = (
+            '\n'
+            '========== PARKING ASSISTANT ==========\n'
+            f'LEFT    {left_bar} {distances[0]:.2f} m\n'
+            f'CENTER  {center_bar} {distances[1]:.2f} m\n'
+            f'RIGHT   {right_bar} {distances[2]:.2f} m\n'
+            '\n'
+            f'Closest obstacle: {closest_direction}\n'
+            f'Status: {status}\n'
+            '=======================================\n'
+        )
+
+        self.get_logger().info(visualization)
 
 
 def main(args=None):
