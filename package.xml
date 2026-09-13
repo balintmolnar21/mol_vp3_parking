@@ -3,7 +3,7 @@
 
 <package format="3">
   <name>mol_vp3_parking</name>
-  <version>0.0.0</version>
+  <version>0.1.0</version>
 
   <description>
     ROS 2 based simulated parking assistant implemented in Python.
