@@ -28,11 +28,27 @@ class ParkingAssistantNode(Node):
             )
             return
 
+        directions = [
+            'LEFT',
+            'CENTER',
+            'RIGHT'
+        ]
+
+        minimum_distance = min(distances)
+
+        minimum_index = distances.index(
+            minimum_distance
+        )
+
+        closest_direction = directions[minimum_index]
+
         self.get_logger().info(
             f'Received distances -> '
             f'Left: {distances[0]:.2f} m | '
             f'Center: {distances[1]:.2f} m | '
-            f'Right: {distances[2]:.2f} m'
+            f'Right: {distances[2]:.2f} m | '
+            f'Closest obstacle: {closest_direction} '
+            f'({minimum_distance:.2f} m)'
         )
 
 
